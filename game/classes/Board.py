@@ -7,7 +7,7 @@ class Board ():
         if not (type(width) is int and type(height) is int):
             raise TypeError("Board dimensions should be int")
         if width < 2 or height < 2:
-            raise Exception("Board size must be greater than 3x3")
+            raise Exception("Board size must be greater than 2x2")
         self.width = width
         self.height = height
         self.build()
