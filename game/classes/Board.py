@@ -15,14 +15,51 @@ class Board ():
     def build(self):
         self.hLines = []
         self.vLines = []
-        for i in range(1, self.width):
+        for _ in range(0, self.width+1):
             self.hLines.append([None]*self.height)
-        for i in range(1, self.height):
+        for _ in range(0, self.height+1):
             self.vLines.append([None]*self.width)
 
     def draw(self):
         print("Drawing Board")
-        for i in range(self.height, 0, -1):
-            print("•-" * self.width + "•")
-            print("| " * self.width + "|")
-        print("•-" * self.width + "•")
+        for i in range(self.height, -1, -1):
+            print(i)
+            strh = ""
+            for j in range(self.width):
+                strh += f"•{self.hLines[j][i] or ' '}"
+            strh += "•"
+            print(strh)
+            strv = ""
+            if i == 0:
+                break
+            for j in range(self.width):
+                strv += f"{self.vLines[j][i-1] or ' '} "
+            print(strv)
+        #     print("•-" * self.width + "•")
+        #     print("| " * self.width + "|")
+        # print("•-" * self.width + "•")
+
+    def validateCoord(self, coord):
+        x, y = coord
+        if x >= 0 and x <= self.width and y >= 0 and y <= self.width:
+            return True
+        return False
+
+    def addLine(self, c1, c2, player):
+        if not self.validateCoord(c1):
+            raise Exception("Coordinate 1 is out of range")
+        if not self.validateCoord(c2):
+            raise Exception("Coordinate 2 is out of range")
+
+        x1, y1 = c1
+        x2, y2 = c2
+        if x1 == x2:
+            self.addVerticalLine(c1,  player)
+        if y1 == y2:
+            self.addHorizontalLine(c1,  player)
+
+        self.draw()
+
+    def addVerticalLine(self, c1, player):
+        x = c1[0]
+        self.vLines[c1[0]][c1[1]] = player

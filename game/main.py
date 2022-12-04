@@ -1,5 +1,7 @@
 from classes.Board import Board
 
 
-board = Board(5, 1)
+board = Board(3, 3)
+board.addLine((0, 0), (0, 1), "@")
+# board.addLine((1, 1), (1, 2), "&")
 board.draw()
