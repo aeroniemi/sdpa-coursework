@@ -21,3 +21,10 @@ class Board ():
             self.hLines.append([None]*self.height)
         for i in range(1, self.height):
             self.vLines.append([None]*self.width)
+
+    def draw(self):
+        print("Drawing Board")
+        for i in range(self.height, 0, -1):
+            print("•-" * self.width + "•")
+            print("| " * self.width + "|")
+        print("•-" * self.width + "•")

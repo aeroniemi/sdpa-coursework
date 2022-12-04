@@ -1,3 +1,5 @@
 from classes.Board import Board
 
-Board.print()
+
+board = Board(5, 1)
+board.draw()
