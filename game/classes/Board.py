@@ -12,8 +12,6 @@ class Board ():
         self.height = height
         self.build()
 
-    def print():
-        print("hello")
     def build(self):
         self.hLines = []
         self.vLines = []
