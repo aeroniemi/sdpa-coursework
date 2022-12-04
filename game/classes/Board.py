@@ -14,3 +14,10 @@ class Board ():
 
     def print():
         print("hello")
+    def build(self):
+        self.hLines = []
+        self.vLines = []
+        for i in range(1, self.width):
+            self.hLines.append([None]*self.height)
+        for i in range(1, self.height):
+            self.vLines.append([None]*self.width)
