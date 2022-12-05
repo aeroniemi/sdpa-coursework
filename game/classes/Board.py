@@ -13,12 +13,19 @@ class Board ():
         self.build()
 
     def build(self):
-        self.hLines = []
-        self.vLines = []
-        for _ in range(0, self.width+1):
-            self.hLines.append([None]*self.height)
-        for _ in range(0, self.height+1):
-            self.vLines.append([None]*self.width)
+        """
+        horizontal then vertical as that's how we draw it
+        y is inverted, both axis start from 0
+        """
+        self.grid = []
+        # the total number of cells in each dimension is 2 * possible lines + 1
+        for i in range(0, (self.height*2)+1):
+            self.grid.append([" "]*((self.width*2)+1))
+        for i, row in enumerate(self.grid):
+            for j in range(len(row)):
+                if i % 2 == 0:
+                    if j % 2 == 0:
+                        row[j] = "•"
 
     def draw(self):
         print("Drawing Board")
