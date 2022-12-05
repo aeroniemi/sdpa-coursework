@@ -54,8 +54,3 @@ class Board ():
         col = x1*2 if x1 == x2 else min(x1, x2)*2+1
         self.grid[row][col] = "@"
         return True
-
-
-# 0, 1 - 1
-# 1, 2 - 3
-# 2, 3 - 5
