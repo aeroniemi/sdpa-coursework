@@ -29,22 +29,16 @@ class Board ():
 
     def draw(self):
         print("Drawing Board")
-        for i in range(self.height, -1, -1):
-            print(i)
-            strh = ""
-            for j in range(self.width):
-                strh += f"•{self.hLines[j][i] or ' '}"
-            strh += "•"
-            print(strh)
-            strv = ""
-            if i == 0:
-                break
-            for j in range(self.width):
-                strv += f"{self.vLines[j][i-1] or ' '} "
-            print(strv)
-        #     print("•-" * self.width + "•")
-        #     print("| " * self.width + "|")
-        # print("•-" * self.width + "•")
+        print(" "+" ".join(str(i) for i in range(0, self.width+1)))
+        for i in range(len(self.grid)):
+            s = ""
+            if i % 2 == 0:
+                s += str(i // 2)
+            else:
+                s += " "
+            for cell in self.grid[i]:
+                s += cell or " "
+            print(s)
 
     def validateMove(self, x1, y1, x2, y2):
         return True
