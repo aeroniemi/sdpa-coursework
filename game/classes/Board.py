@@ -46,27 +46,22 @@ class Board ():
         #     print("| " * self.width + "|")
         # print("•-" * self.width + "•")
 
-    def validateCoord(self, coord):
-        x, y = coord
-        if x >= 0 and x <= self.width and y >= 0 and y <= self.width:
-            return True
-        return False
+    def validateMove(self, x1, y1, x2, y2):
+        return True
 
-    def addLine(self, c1, c2, player):
-        if not self.validateCoord(c1):
-            raise Exception("Coordinate 1 is out of range")
-        if not self.validateCoord(c2):
-            raise Exception("Coordinate 2 is out of range")
+    def addLine(self, x1, y1, x2, y2, player):
+        isValid = self.validateMove(x1, y1, x2, y2)
+        if not isValid:
+            raise Exception("Not a valid move")
+        self.setLine(x1, y1, x2, y2, player)
 
-        x1, y1 = c1
-        x2, y2 = c2
-        if x1 == x2:
-            self.addVerticalLine(c1,  player)
-        if y1 == y2:
-            self.addHorizontalLine(c1,  player)
+    def setLine(self, x1, y1, x2, y2, player):
+        row = y1*2 if y1 == y2 else min(y1, y2)*2+1
+        col = x1*2 if x1 == x2 else min(x1, x2)*2+1
+        self.grid[row][col] = "@"
+        return True
 
-        self.draw()
 
-    def addVerticalLine(self, c1, player):
-        x = c1[0]
-        self.vLines[c1[0]][c1[1]] = player
+# 0, 1 - 1
+# 1, 2 - 3
+# 2, 3 - 5
