@@ -47,17 +47,22 @@ class Board ():
 
     def validateMove(self, x1, y1, x2, y2):
         row, col = self.getCell(x1, y1, x2, y2)
-        if not self.grid[row]:
-            return False
-        if not self.grid[row][col]:
-            return False
-        if self.grid[row][col] == " ":
-            return True
+        if row > len(self.grid)-1:
+            raise Exception(
+                f"Move is outside of vertical bounds: {x1,y1,x2,y2}")
+        if col > len(self.grid[row]):
+            raise Exception(
+                f"Move is outside of horizontal bounds: {x1,y1,x2,y2}")
+        if self.grid[row][col] != " ":
+            raise Exception(
+                f"Line already exists in this cell: {x1,y1,x2,y2}")
+        return True
 
     def addLine(self, x1, y1, x2, y2, player):
-        isValid = self.validateMove(x1, y1, x2, y2)
-        if not isValid:
-            raise Exception("Not a valid move")
+        try:
+            self.validateMove(x1, y1, x2, y2)
+        except:
+            raise
         self.setLine(x1, y1, x2, y2, player)
 
     def getCell(self, x1, y1, x2, y2):
