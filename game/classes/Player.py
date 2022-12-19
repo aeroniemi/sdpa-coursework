@@ -28,8 +28,8 @@ class HumanPlayer(Player):
         matched = re.findall("(\d+),(\d+),(\d+),(\d+)", instr)
         if len(matched) != 1:
             print("Invalid input - check format")
-        x1, y1, x2, y2 = matched[0]
             self.input(board)
+        x1, y1, x2, y2 = map(int, matched[0])
         # try:
         board.addLine(x1, y1, x2, y2, self)
         # except:
