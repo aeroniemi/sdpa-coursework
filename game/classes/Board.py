@@ -66,6 +66,8 @@ class Board ():
         self.setLine(x1, y1, x2, y2, player)
 
     def getCell(self, x1, y1, x2, y2):
+        if ((x1-x2)**2 + (y1-y2)**2)**0.5 != 1:
+            raise Exception(f"Move is not contiguous: {x1,y1,x2,y2}")
         row = y1*2 if y1 == y2 else min(y1, y2)*2+1
         col = x1*2 if x1 == x2 else min(x1, x2)*2+1
         return row, col
