@@ -66,8 +66,8 @@ class Board ():
         return row, col
 
     def setLine(self, x1, y1, x2, y2, player):
-        row, col = self.getCell(x1, y2, x2, y2)
-        self.grid[row][col] = "@"
+        row, col = self.getCell(x1, y1, x2, y2)
+        self.grid[row][col] = player.getIcon()
         return True
 
     def whoGoesFirst(self):
@@ -76,9 +76,17 @@ class Board ():
             return 1
         return 0
 
+    def getPrettyPlayer(self):
+        return f"{self.activePlayer+1}'s"
+
     def play(self):
         self.activePlayer = self.whoGoesFirst()
+        print(f"{self.activePlayer+1} goes first")
         while True:
+            print(f"It's player {self.getPrettyPlayer()} turn")
             self.draw()
-            self.players[self.activePlayer].input()
-            
+            res = self.players[self.activePlayer].input(self)
+            if not res:
+                print("Game has ended")
+                break
+            self.activePlayer ^= 1  # bitwise way of flipping 1 for 0
