@@ -1,4 +1,5 @@
 from classes.Board import Board
+from classes.Player import Player
 
 
 board = Board(3, 3)
