@@ -56,6 +56,37 @@ class RandomPlayer(Player):
             return True
 
 
+class ComputerPlayer(Player):
+    def getPossibleMoves(self, board):
+        for 
+    def testMove(self, x1,y1,x2,y2,board):
+        try:
+            board.validateMove(x1,y1,x2,y2)
+        except:
+            return False
+        else: 
+            return True
+        
+    def input(self, board):
+        x1 = random.randint(0, board.width)
+        y1 = random.randint(0, board.height)
+        if bool(random.getrandbits(1)) == True:
+            x2 = x1+1
+            y2 = y1
+        else:
+            x2 = x1
+            y2 = y1+1
+        valid = False
+        try:
+            board.validateMove(x1, y1, x2, y2)
+        except:
+            return False
+        else:
+            board.addLine(x1, y1, x2, y2, self)
+            print(f"Computer player has added line: {x1,y1,x2,y2}")
+            return True
+
+
 class HumanPlayer(Player):
     def input(self, board):
         print("Enter your line in the format 'x1,y1,x2,y2'")
