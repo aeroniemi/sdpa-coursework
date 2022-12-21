@@ -35,7 +35,7 @@ class Player:
         return self.points or 0
 
 
-class ComputerPlayer(Player):
+class RandomPlayer(Player):
     def input(self, board):
         x1 = random.randint(0, board.width)
         y1 = random.randint(0, board.height)
