@@ -1,5 +1,6 @@
 import random
 from classes.Player import Player
+from classes.Move import Move
 
 
 class Board ():
@@ -66,6 +67,7 @@ class Board ():
         except:
             raise
         self.setLine(x1, y1, x2, y2, player)
+        
 
     def getCell(self, x1, y1, x2, y2):
         if ((x1-x2)**2 + (y1-y2)**2)**0.5 != 1:
@@ -87,6 +89,28 @@ class Board ():
 
     def getPrettyPlayer(self):
         return f"{self.activePlayer+1}'s"
+
+    def getActivePlayer(self):
+        return self.players[self.activePlayer]
+
+    def getLegalMoves(self):
+        legalMoves = []
+        for y1 in range(0, len(self.grid), 2):
+            for x1 in range(0, len(self.grid[y1]), 2):
+                try:
+                    self.validateMove(x1, y1, x1+1, y1)
+                except:
+                    pass
+                else:
+                    legalMoves.append(Move(x1, y1, x1+1, y1))
+
+                try:
+                    self.validateMove(x1, y1, x1, y1+1)
+                except:
+                    pass
+                else:
+                    legalMoves.append(Move(x1, y1, x1, y1+1))
+        return legalMoves
 
     def calculatePoints(self):
         self.players[0].setPoints(0)
@@ -128,8 +152,11 @@ class Board ():
             print(
                 f"It's player {self.getPrettyPlayer()} turn; turn number {self.moves}")
             self.draw()
+            print("Valid moves:")
+            for move in self.getLegalMoves():
+                move.draw(self)
             while True:
-                entry = self.players[self.activePlayer].input(self)
+                entry = self.getActivePlayer().input(self)
                 if entry == True:
                     break
             self.calculatePoints()

@@ -57,16 +57,14 @@ class RandomPlayer(Player):
 
 
 class ComputerPlayer(Player):
-    def getPossibleMoves(self, board):
-        for 
-    def testMove(self, x1,y1,x2,y2,board):
+    def testMove(self, x1, y1, x2, y2, board):
         try:
-            board.validateMove(x1,y1,x2,y2)
+            board.validateMove(x1, y1, x2, y2)
         except:
             return False
-        else: 
+        else:
             return True
-        
+
     def input(self, board):
         x1 = random.randint(0, board.width)
         y1 = random.randint(0, board.height)
