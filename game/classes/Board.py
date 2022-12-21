@@ -1,4 +1,5 @@
 import random
+from classes.Player import Player
 
 
 class Board ():
@@ -16,6 +17,7 @@ class Board ():
         self.build()
         self.players = (player1, player2)
         self.activePlayer = 0
+        self.moves = 1
 
     def build(self):
         """
@@ -33,7 +35,7 @@ class Board ():
                         row[j] = "•"
 
     def draw(self):
-        print("Drawing Board")
+        # print("Drawing Board")
         print(" "+" ".join(str(i) for i in range(0, self.width+1)))
         for i in range(len(self.grid)):
             s = ""
@@ -42,7 +44,7 @@ class Board ():
             else:
                 s += " "
             for cell in self.grid[i]:
-                s += cell or " "
+                s += str(cell) or " "
             print(s)
 
     def validateMove(self, x1, y1, x2, y2):
@@ -74,7 +76,7 @@ class Board ():
 
     def setLine(self, x1, y1, x2, y2, player):
         row, col = self.getCell(x1, y1, x2, y2)
-        self.grid[row][col] = player.getIcon()
+        self.grid[row][col] = player
         return True
 
     def whoGoesFirst(self):
@@ -86,14 +88,57 @@ class Board ():
     def getPrettyPlayer(self):
         return f"{self.activePlayer+1}'s"
 
+    def calculatePoints(self):
+        self.players[0].setPoints(0)
+        self.players[1].setPoints(0)
+        for j in range(1, len(self.grid), 2):
+            for i in range(1, len(self.grid[j]), 2):
+                # top, right, bottom, left
+                edges = (self.grid[i][j-1], self.grid[i+1]
+                         [j], self.grid[i][j+1], self.grid[i-1][j])
+                if len(set(edges)) == 1:
+                    print(edges[0])
+                    if isinstance(edges[0], Player):
+                        self.grid[i][j] = edges[0]
+                        edges[0].addPoints()
+
+    def getMaxNumberOfMoves(self):
+        # the max number of edges is 2ab+a+b because maths (expansion of (2a+1)*(2b+1)-(ab)-((a+1)*(b+1))
+        return (2*self.width*self.height)+self.width+self.height
+
+    def printPoints(self):
+        print(
+            f"Player 1: {self.players[0].getPoints()}   Player 2: {self.players[0].getPoints()}")
+
+    def printWinner(self):
+        player1 = self.players[0].getPoints()
+        player2 = self.players[1].getPoints()
+        if player1 == player2:
+            print("It's a tie")
+        if player1 > player2:
+            print("Player 1 Wins")
+        if player1 < player2:
+            print("Player 2 Wins")
+
     def play(self):
         self.activePlayer = self.whoGoesFirst()
         print(f"{self.activePlayer+1} goes first")
-        while True:
-            print(f"It's player {self.getPrettyPlayer()} turn")
+
+        while self.moves <= self.getMaxNumberOfMoves():
+            print(
+                f"It's player {self.getPrettyPlayer()} turn; turn number {self.moves}")
             self.draw()
-            res = self.players[self.activePlayer].input(self)
-            if not res:
-                print("Game has ended")
-                break
+            while True:
+                entry = self.players[self.activePlayer].input(self)
+                if entry == True:
+                    break
+            self.calculatePoints()
+            self.printPoints()
             self.activePlayer ^= 1  # bitwise way of flipping 1 for 0
+            self.moves += 1
+        print("\n\n\n\n\n\n\n\n")
+        print("The Game is complete")
+        print("Winning board:")
+        self.draw()
+        self.printPoints()
+        self.printWinner()
