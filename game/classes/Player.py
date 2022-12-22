@@ -1,3 +1,14 @@
+"""
+Player, class of sdpa-game
+Alex (Lexi) Beavil 2022
+@aeroniemi
+
+Contains features associated with players, including the children:
+    HumanPlayer
+    RandomPlayer
+    ComputerPlayer
+"""
+
 import re
 import random
 import time

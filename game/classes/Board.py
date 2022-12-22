@@ -1,3 +1,12 @@
+"""
+Board, class of sdpa-game
+Alex (Lexi) Beavil 2022
+@aeroniemi
+
+Contains all of the "play" features of the dots and boxes game
+"""
+
+
 import random
 import time
 from classes.Player import Player, RandomPlayer, ComputerPlayer, HumanPlayer

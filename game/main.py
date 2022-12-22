@@ -1,3 +1,10 @@
+"""
+main, entry point to sdpa-game
+Alex (Lexi) Beavil 2022
+@aeroniemi
+
+Imports classes and launches the game
+"""
 from classes.Board import Board
 from classes.Player import HumanPlayer, RandomPlayer, ComputerPlayer
 

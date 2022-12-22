@@ -1,3 +1,12 @@
+"""
+Move, class of sdpa-game
+Alex (Lexi) Beavil 2022
+@aeroniemi
+
+Used for easily defining and rating legal moves, primarily for ComputerPlayer
+"""
+
+
 class Move:
     def __init__(self, x1, y1, x2, y2):
         self.x1 = x1
