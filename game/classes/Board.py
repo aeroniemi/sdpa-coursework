@@ -37,6 +37,7 @@ class Board ():
         self.showMoves = self.settingInput("Show Possible moves and ratings?")
         self.width = self.sizeInput("Width of the board:", 3)
         self.height = self.sizeInput("Height of the board:", 3)
+        self.players[0] = HumanPlayer("A")
         if self.settingInput("Human Opponent?"):
             self.players[1] = HumanPlayer("B")
         elif self.settingInput("Random Computer Opponent?"):
@@ -44,7 +45,7 @@ class Board ():
         else:
             self.players[1] = ComputerPlayer("B")
         print("Let's Play")
-        time.sleep(3)
+        time.sleep(2)
         self.play()
 
     def settingInput(self, text):
@@ -141,7 +142,7 @@ class Board ():
         return 0
 
     def getPrettyPlayer(self):
-        return f"{self.activePlayer+1}'s"
+        return f"{self.getActivePlayer().getIcon()}'s"
 
     def getActivePlayer(self):
         return self.players[self.activePlayer]
@@ -183,7 +184,7 @@ class Board ():
 
     def printPoints(self):
         print(
-            f"Player 1: {self.players[0].getPoints()}   Player 2: {self.players[1].getPoints()}")
+            f"Player {self.player[0].getIcon()}: {self.players[0].getPoints()}   Player {self.player[1].getIcon()}: {self.players[1].getPoints()}")
 
     def printWinner(self):
         player1 = self.players[0].getPoints()
@@ -191,9 +192,9 @@ class Board ():
         if player1 == player2:
             print("It's a tie")
         if player1 > player2:
-            print("Player 1 Wins")
+            print(f"Player {self.player[0].getIcon()} Wins")
         if player1 < player2:
-            print("Player 2 Wins")
+            print(f"Player {self.player[1].getIcon()} Wins")
 
     def printMoves(self):
         print("Valid moves:")
@@ -208,7 +209,8 @@ class Board ():
             raise Exception(
                 "Not enough Player present, check you're launching the game properly")
         self.activePlayer = self.whoGoesFirst()
-        print(f"{self.activePlayer+1} goes first")
+        print(
+            f"The coin was flipped, and player {self.getActivePlayer().getIcon()} goes first")
 
         while self.moves <= self.getMaxNumberOfMoves():
             print(
