@@ -35,9 +35,8 @@ class Move:
                     g[row-1][col+1],
                     g[row-2][col],
                 ]
-                if edges.count(" ") <= 1:
-                    # print("above")
-                    rating += 2-edges.count(" ")
+                if edges.count(" ") % 2 == 0:
+                    rating += 3-edges.count(" ")
             # below
             if self.y1 != board.height:
                 edges = [
@@ -45,9 +44,8 @@ class Move:
                     g[row+1][col+1],
                     g[row+2][col],
                 ]
-                if edges.count(" ") <= 1:
-                    # print("below")
-                    rating += 2-edges.count(" ")
+                if edges.count(" ") % 2 == 0:
+                    rating += 3-edges.count(" ")
         if self.isVertical():
             # two possible boxes can be filled - an left and a right
 
@@ -58,9 +56,8 @@ class Move:
                     g[row+1][col-1],
                     g[row][col-2],
                 ]
-                if edges.count(" ") <= 1:
-                    # print("left")
-                    rating += 2-edges.count(" ")
+                if edges.count(" ") % 2 == 0:
+                    rating += 3-edges.count(" ")
             # right
             if self.x1 != board.width:
                 edges = [
@@ -68,9 +65,8 @@ class Move:
                     g[row+1][col+1],
                     g[row][col+2],
                 ]
-                if edges.count(" ") <= 1:
-                    # print("Right")
-                    rating += 2-edges.count(" ")
+                if edges.count(" ") % 2 == 0:
+                    rating += 3-edges.count(" ")
         if rating > 4:
             raise Exception("Rating Condition Error")
         return rating
