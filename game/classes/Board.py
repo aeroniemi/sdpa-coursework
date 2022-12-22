@@ -113,8 +113,6 @@ class Board ():
         return legalMoves
 
     def calculatePoints(self):
-        self.players[0].setPoints(0)
-        self.players[1].setPoints(0)
         for j in range(1, len(self.grid), 2):
             for i in range(1, len(self.grid[j]), 2):
                 # top, right, bottom, left
