@@ -227,13 +227,20 @@ class Board ():
                     legalMoves.append(Move(x1, y1, x1, y1+1))
         return legalMoves
 
+    def getGridDimensions(self):
+        width = self.width*2+1
+        height = self.height*2+1
+        return width, height
+
     def calculatePoints(self):
         """
         Work out if the last move scored any new points
             If it did, add those points to the player and show the box as filled in the grid
         """
-        for j in range(1, len(self.grid), 2):
-            for i in range(1, len(self.grid[j]), 2):
+        # j = vert, i = horiz
+        width, height = self.getGridDimensions()
+        for j in range(1, width, 2):
+            for i in range(1, height, 2):
                 # top, right, bottom, left
                 if self.grid[i][j] == " ":
                     edges = (self.grid[i][j-1], self.grid[i+1]
