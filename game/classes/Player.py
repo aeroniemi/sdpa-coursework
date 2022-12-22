@@ -20,34 +20,53 @@ class Player:
         self.points = 0
         # self.board = board
 
-    def addLine(self, x1, y1, x2, y2):
-        return self.board(x1, y1, x2, y2, self)
-
     def getIcon(self):
+        """
+        Get the player's text icon (usually 'A' or 'B')
+        """
         return self.icon
 
-    def input(self):
-        return
+    # def __str__(self):
+    #     """
+    #     Used for displaying the icon by the board drawer
+    #     """
+    #     return self.getIcon()
 
-    def __str__(self):
-        """Used for displaying the icon by the board drawer"""
-        return self.getIcon()
-
-    def __int__(self):
-        """Used for easy access to the points by win calculator"""
-        return self.getPoints()
+    # def __int__(self):
+    #     """
+    #     Used for easy access to the points by win calculator
+    #     """
+    #     return self.getPoints()
 
     def addPoints(self):
+        """
+        Add a point to the player
+        """
         self.points += 1
 
     def setPoints(self, points):
+        """
+        Set the points of the player
+        Useful for resetting points if needd
+        """
         self.points = points or 0
 
     def getPoints(self):
+        """
+        How many points does this player have?
+        """
         return self.points or 0
 
 
 class RandomPlayer(Player):
+    """
+    Extends Player
+    Give a random line as response
+        Kinda like a dumb AI player
+        It just randomly tries lines until it gets a valid one
+        It's also useful for testing entry conditions
+    """
+
     def input(self, board):
         time.sleep(2)
         x1 = random.randint(0, board.width)
@@ -70,6 +89,12 @@ class RandomPlayer(Player):
 
 
 class ComputerPlayer(Player):
+    """
+    Extends Player
+    Gives a smart response
+        It looks at the available moves, and picks the best
+    """
+
     def input(self, board):
         time.sleep(2)
         possibleMoves = board.getLegalMoves()
@@ -82,6 +107,11 @@ class ComputerPlayer(Player):
 
 
 class HumanPlayer(Player):
+    """
+    Extends Player
+    Takes input from a human on the CLI
+    """
+
     def input(self, board):
         print("Enter your line in the format 'x1,y1,x2,y2'")
         instr = input()

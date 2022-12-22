@@ -8,6 +8,10 @@ Used for easily defining and rating legal moves, primarily for ComputerPlayer
 
 
 class Move:
+    """
+    Defines a legal move, that can be rated
+    """
+
     def __init__(self, x1, y1, x2, y2):
         self.x1 = x1
         self.y1 = y1
@@ -15,23 +19,45 @@ class Move:
         self.y2 = y2
 
     def __str__(self):
+        """
+        Returns the xy definition of the line for identification/printing
+        """
         return f"({self.x1}, {self.y1}, {self.x2}, {self.y2})"
 
     def getXY(self):
+        """
+        Returns the tuple XY for this move
+        """
         return self.x1, self.y1, self.x2, self.y2
 
     def isHorizontal(self):
+        """
+        Is this move horizontal?
+        """
         return self.x1 != self.x2
 
     def isVertical(self):
+        """
+        Is this move vertical?
+        """
         return self.y1 != self.y2
 
     def draw(self, board):
+        """
+        Print out this move with a rating
+        """
         print(
             f"Move: {self.x1, self.y1, self.x2, self.y2} Rating: {self.rate(board)}")
 
     def rate(self, board):
-        """Counts the number of boxes that this move completes right now"""
+        """
+        Counts the number of boxes that this move completes right now
+        Gives a rating of:
+        +2 if it completes a box this turn
+        +1 if it will complete a box in 2 turns time
+        (the latter gives foresight of good moves, but ones that the 
+         opponent can't immediately take advantage of)
+        """
         rating = 0
         row, col = board.getCell(self.x1, self.y1, self.x2, self.y2)
         g = board.grid
