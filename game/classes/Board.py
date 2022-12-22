@@ -130,7 +130,7 @@ class Board ():
 
     def printPoints(self):
         print(
-            f"Player 1: {self.players[0].getPoints()}   Player 2: {self.players[0].getPoints()}")
+            f"Player 1: {self.players[0].getPoints()}   Player 2: {self.players[1].getPoints()}")
 
     def printWinner(self):
         player1 = self.players[0].getPoints()
