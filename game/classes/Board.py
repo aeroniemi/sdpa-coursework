@@ -1,5 +1,6 @@
 import random
-from classes.Player import Player
+import time
+from classes.Player import Player, RandomPlayer, ComputerPlayer, HumanPlayer
 from classes.Move import Move
 
 
@@ -16,9 +17,41 @@ class Board ():
         self.width = width
         self.height = height
         self.build()
-        self.players = (player1, player2)
+        self.players = [player1, player2]
         self.activePlayer = 0
         self.moves = 1
+        self.showMoves = False
+        self.initialise()
+
+    def initialise(self):
+        print("Game Settings")
+        self.showMoves = self.settingInput("Show Possible moves and ratings?")
+        self.width = self.sizeInput("Width of the board:", 3)
+        self.height = self.sizeInput("Height of the board:", 3)
+        if self.settingInput("Human Opponent?"):
+            self.players[1] = HumanPlayer("B")
+        elif self.settingInput("Random Computer Opponent?"):
+            self.players[1] = RandomPlayer("B")
+        else:
+            self.players[1] = ComputerPlayer("B")
+        print("Let's Play")
+        time.sleep(3)
+        self.play()
+
+    def settingInput(self, text):
+        res = input(f"{text} (y/n) ")
+        if res == "y" or res == "yes":
+            return True
+        return False
+
+    def sizeInput(self, text, default):
+        res = input(f"{text} ({default}) ")
+        if res == "":
+            return default
+        if (not res.isdigit()) or int(res) < 3 or int(res) > 20:
+            print("    Invalid input, must be integer in range 3-20")
+            return self.sizeInput(text)
+        return int(res)
 
     def build(self):
         """
@@ -153,6 +186,14 @@ class Board ():
         if player1 < player2:
             print("Player 2 Wins")
 
+    def printMoves(self):
+        print("Valid moves:")
+        possibleMoves = self.getLegalMoves()
+        possibleMoves = sorted(possibleMoves, key=lambda move: (
+            move.rate(self), random.random()), reverse=True)
+        for move in possibleMoves:
+            move.draw(self)
+
     def play(self):
         self.activePlayer = self.whoGoesFirst()
         print(f"{self.activePlayer+1} goes first")
@@ -161,12 +202,8 @@ class Board ():
             print(
                 f"It's player {self.getPrettyPlayer()} turn; turn number {self.moves}")
             self.draw()
-            print("Valid moves:")
-            possibleMoves = self.getLegalMoves()
-            possibleMoves = sorted(possibleMoves, key=lambda move: (
-                move.rate(self), random.random()), reverse=True)
-            for move in possibleMoves:
-                move.draw(self)
+            if self.showMoves:
+                self.printMoves()
             while True:
                 entry = self.getActivePlayer().input(self)
                 if entry == True:
