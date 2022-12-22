@@ -33,19 +33,31 @@ class Board ():
             for j in range(len(row)):
                 if i % 2 == 0:
                     if j % 2 == 0:
-                        row[j] = "•"
+                        row[j] = "●"
 
     def draw(self):
         # print("Drawing Board")
-        print(" "+" ".join(str(i) for i in range(0, self.width+1)))
+        print("  "+" ".join(str(i) for i in range(0, self.width+1)))
         for i in range(len(self.grid)):
             s = ""
             if i % 2 == 0:
-                s += str(i // 2)
+                s += str(i // 2) + " "
+                for cell in self.grid[i]:
+                    if isinstance(cell, Player):
+                        s += "━"
+                    else:
+                        s += cell
             else:
-                s += " "
-            for cell in self.grid[i]:
-                s += str(cell) or " "
+                s += "  "
+                for j in range(len(self.grid[i])):
+                    cell = self.grid[i][j]
+                    if isinstance(cell, Player):
+                        if j % 2 == 0:
+                            s += "┃"
+                        else:
+                            s += str(cell)
+                    else:
+                        s += cell
             print(s)
 
     def validateMove(self, x1, y1, x2, y2):
