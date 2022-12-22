@@ -8,6 +8,9 @@ class Move:
     def __str__(self):
         return f"({self.x1}, {self.y1}, {self.x2}, {self.y2})"
 
+    def getXY(self):
+        return self.x1, self.y1, self.x2, self.y2
+
     def isHorizontal(self):
         return self.x1 != self.x2
 
@@ -21,48 +24,53 @@ class Move:
     def rate(self, board):
         """Counts the number of boxes that this move completes right now"""
         rating = 0
+        row, col = board.getCell(self.x1, self.y1, self.x2, self.y2)
+        g = board.grid
         if self.isHorizontal():
             # two possible boxes can be filled - an above, and a below
             # above
             if self.y1 != 0:
                 edges = [
-                    (self.x1, self.y1, self.x1, self.y1-1),
-                    (self.x1, self.y1-1, self.x1+1, self.y1-1),
-                    (self.x1+1, self.y1-1, self.x1+1, self.y1-1)
+                    g[row-1][col-1],
+                    g[row-1][col+1],
+                    g[row-2][col],
                 ]
-                if edges[0] != " " and len(set(edges)) == 1:
-                    rating += 1
+                if edges.count(" ") <= 1:
+                    # print("above")
+                    rating += 2-edges.count(" ")
             # below
-            if self.y1 != len(board.grid):
+            if self.y1 != board.height:
                 edges = [
-                    (self.x1, self.y1, self.x1, self.y1+11),
-                    (self.x1, self.y1+1, self.x1+1, self.y1+1),
-                    (self.x1+1, self.y1+1, self.x1+1, self.y1+1)
+                    g[row+1][col-1],
+                    g[row+1][col+1],
+                    g[row+2][col],
                 ]
-                if edges[0] != " " and len(set(edges)) == 1:
-                    rating += 1
+                if edges.count(" ") <= 1:
+                    # print("below")
+                    rating += 2-edges.count(" ")
         if self.isVertical():
             # two possible boxes can be filled - an left and a right
 
             # left
-            if self.y1 != 0:
+            if self.x1 != 0:
                 edges = [
-                    (self.x1-1, self.y1, self.x1, self.y1),
-                    (self.x1-1, self.y1, self.x1-1, self.y1+1),
-                    (self.x1-1, self.y1+1, self.x1, self.y1+1)
+                    g[row-1][col-1],
+                    g[row+1][col-1],
+                    g[row][col-2],
                 ]
-                if edges[0] != " " and len(set(edges)) == 1:
-                    rating += 1
+                if edges.count(" ") <= 1:
+                    # print("left")
+                    rating += 2-edges.count(" ")
             # right
-            if self.y1 != len(board.grid):
+            if self.x1 != board.width:
                 edges = [
-                    (self.x1, self.y1, self.x1+1, self.y1),
-                    (self.x1+1, self.y1, self.x1+1, self.y1+1),
-                    (self.x1, self.y1+1, self.x1+1, self.y1+1)
+                    g[row-1][col+1],
+                    g[row+1][col+1],
+                    g[row][col+2],
                 ]
-                if edges[0] != " " and len(set(edges)) == 1:
-                    rating += 1
-
-        if rating > 2:
+                if edges.count(" ") <= 1:
+                    # print("Right")
+                    rating += 2-edges.count(" ")
+        if rating > 4:
             raise Exception("Rating Condition Error")
         return rating
