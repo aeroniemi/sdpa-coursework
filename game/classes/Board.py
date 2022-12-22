@@ -79,7 +79,6 @@ class Board ():
         except:
             raise
         self.setLine(x1, y1, x2, y2, player)
-        
 
     def getCell(self, x1, y1, x2, y2):
         if ((x1-x2)**2 + (y1-y2)**2)**0.5 != 1:
@@ -163,7 +162,10 @@ class Board ():
                 f"It's player {self.getPrettyPlayer()} turn; turn number {self.moves}")
             self.draw()
             print("Valid moves:")
-            for move in self.getLegalMoves():
+            possibleMoves = self.getLegalMoves()
+            possibleMoves = sorted(possibleMoves, key=lambda move: (
+                move.rate(self), random.random()), reverse=True)
+            for move in possibleMoves:
                 move.draw(self)
             while True:
                 entry = self.getActivePlayer().input(self)
