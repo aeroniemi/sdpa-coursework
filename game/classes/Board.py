@@ -266,7 +266,7 @@ class Board ():
         if player1 == player2:
             print("It's a tie")
         if player1 > player2:
-            print(f"Player {self.player[0].getIcon()} Wins")
+            print(f"Player {self.players[0].getIcon()} Wins")
         if player1 < player2:
             print(f"Player {self.player[1].getIcon()} Wins")
 
@@ -312,6 +312,8 @@ class Board ():
 
             # take entry from the user
             # it's a loop as py gets sad if you use recursion too much (such as happens when the random player just keeps trying stuff)
+            while True:
+                # it's a loop as py gets sad if you use recursion too much (such as happens when the random player just keeps trying stuff)
             while True:
                 entry = self.getActivePlayer().input(self)
                 if entry == True:
