@@ -1,5 +1,6 @@
 import re
 import random
+import time
 
 
 class Player:
@@ -37,6 +38,7 @@ class Player:
 
 class RandomPlayer(Player):
     def input(self, board):
+        time.sleep(2)
         x1 = random.randint(0, board.width)
         y1 = random.randint(0, board.height)
         if bool(random.getrandbits(1)) == True:
@@ -58,6 +60,7 @@ class RandomPlayer(Player):
 
 class ComputerPlayer(Player):
     def input(self, board):
+        time.sleep(2)
         possibleMoves = board.getLegalMoves()
         possibleMoves = sorted(possibleMoves, key=lambda move: (
             move.rate(board), random.random()), reverse=True)
