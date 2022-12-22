@@ -275,7 +275,7 @@ class Board ():
         if player1 > player2:
             print(f"Player {self.players[0].getIcon()} Wins")
         if player1 < player2:
-            print(f"Player {self.player[1].getIcon()} Wins")
+            print(f"Player {self.players[1].getIcon()} Wins")
 
     def printMoves(self):
         """
