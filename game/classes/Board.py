@@ -14,7 +14,7 @@ from classes.Move import Move
 
 
 class Board ():
-    def __init__(self, width, height, player1, player2):
+    def __init__(self, width, height, player1=False, player2=False):
         """
         @width: int, number of boxes in X axis
         @height: int, number of boxes in Y axis
@@ -204,6 +204,9 @@ class Board ():
             move.draw(self)
 
     def play(self):
+        if not isinstance(self.players[0], Player) or not isinstance(self.players[1], Player):
+            raise Exception(
+                "Not enough Player present, check you're launching the game properly")
         self.activePlayer = self.whoGoesFirst()
         print(f"{self.activePlayer+1} goes first")
 
