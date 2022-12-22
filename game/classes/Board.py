@@ -313,8 +313,6 @@ class Board ():
             # take entry from the user
             # it's a loop as py gets sad if you use recursion too much (such as happens when the random player just keeps trying stuff)
             while True:
-                # it's a loop as py gets sad if you use recursion too much (such as happens when the random player just keeps trying stuff)
-            while True:
                 entry = self.getActivePlayer().input(self)
                 if entry == True:
                     break
