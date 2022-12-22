@@ -107,8 +107,8 @@ class Board ():
 
     def getLegalMoves(self):
         legalMoves = []
-        for y1 in range(0, len(self.grid), 2):
-            for x1 in range(0, len(self.grid[y1]), 2):
+        for y1 in range(0, self.height, 1):
+            for x1 in range(0, self.width, 1):
                 try:
                     self.validateMove(x1, y1, x1+1, y1)
                 except:
