@@ -53,7 +53,7 @@ class Move:
         """
         Counts the number of boxes that this move completes right now
         Gives a rating of:
-        +2 if it completes a box this turn
+        +3 if it completes a box this turn
         +1 if it will complete a box in 2 turns time
         (the latter gives foresight of good moves, but ones that the 
          opponent can't immediately take advantage of)
@@ -102,6 +102,6 @@ class Move:
                 ]
                 if edges.count(" ") % 2 == 0:
                     rating += 3-edges.count(" ")
-        if rating > 4:
+        if rating > 6:
             raise Exception("Rating Condition Error")
         return rating
