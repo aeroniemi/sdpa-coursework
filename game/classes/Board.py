@@ -128,13 +128,13 @@ class Board ():
         for j in range(1, len(self.grid), 2):
             for i in range(1, len(self.grid[j]), 2):
                 # top, right, bottom, left
-                edges = (self.grid[i][j-1], self.grid[i+1]
-                         [j], self.grid[i][j+1], self.grid[i-1][j])
-                if len(set(edges)) == 1:
-                    print(edges[0])
-                    if isinstance(edges[0], Player):
-                        self.grid[i][j] = edges[0]
-                        edges[0].addPoints()
+                if self.grid[i][j] == " ":
+                    edges = (self.grid[i][j-1], self.grid[i+1]
+                             [j], self.grid[i][j+1], self.grid[i-1][j])
+                    if not " " in edges:
+                        self.grid[i][j] = self.getActivePlayer()
+                        self.getActivePlayer().addPoints()
+                        return
 
     def getMaxNumberOfMoves(self):
         # the max number of edges is 2ab+a+b because maths (expansion of (2a+1)*(2b+1)-(ab)-((a+1)*(b+1))
