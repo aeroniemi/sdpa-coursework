@@ -38,11 +38,11 @@ class Player:
     #     """
     #     return self.getPoints()
 
-    def addPoints(self):
+    def addPoints(self, points=1):
         """
         Add a point to the player
         """
-        self.points += 1
+        self.points += points
 
     def setPoints(self, points):
         """
