@@ -321,8 +321,9 @@ class Board ():
             # it's a loop as py gets sad if you use recursion too much (such as happens when the random player just keeps trying stuff)
             while True:
                 entry = self.getActivePlayer().input(self)
-                if entry == True:
+                if entry != False:
                     break
+            self.addLine(*entry, self.getActivePlayer())
             # now the user has submitted their input, deal with points, then flip the user
             self.calculatePoints()
             self.printPoints()

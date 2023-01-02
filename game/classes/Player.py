@@ -77,15 +77,12 @@ class RandomPlayer(Player):
         else:
             x2 = x1
             y2 = y1+1
-        valid = False
         try:
             board.validateMove(x1, y1, x2, y2)
         except:
             return False
         else:
-            board.addLine(x1, y1, x2, y2, self)
-            print(f"Computer player has added line: {x1,y1,x2,y2}")
-            return True
+            return x1, y1, x2, y2
 
 
 class ComputerPlayer(Player):
@@ -101,9 +98,7 @@ class ComputerPlayer(Player):
         possibleMoves = sorted(possibleMoves, key=lambda move: (
             move.rate(board), random.random()), reverse=True)
         x1, y1, x2, y2 = possibleMoves[0].getXY()
-        board.addLine(x1, y1, x2, y2, self)
-        print(f"Computer player has added line: {x1,y1,x2,y2}")
-        return True
+        return x1, y1, x2, y2
 
 
 class HumanPlayer(Player):
@@ -118,13 +113,13 @@ class HumanPlayer(Player):
         matched = re.findall("(\d+),(\d+),(\d+),(\d+)", instr)
         if len(matched) != 1:
             print("Invalid input - check format")
-            return self.input(board)
+            return False
         x1, y1, x2, y2 = map(int, matched[0])
         try:
-            board.addLine(x1, y1, x2, y2, self)
+            board.validateMove(x1, y1, x2, y2)
         except Exception as e:
             print(f"Move invalid: {e}")
             print(f"Try again")
-            self.input(board)
-        # print(x1, y1, x2, y2)
-        return True
+            return False
+        else:
+            return x1, y1, x2, y2
