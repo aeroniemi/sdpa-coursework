@@ -65,6 +65,10 @@ All files for the game are located in the `./game/` folder
 - `Move` class
   - Responsible for rating moves for the smart computer player
 
+#### `classes/__init__.py`
+
+- Generated automatically as a root identifier for the classes folder
+
 ### Design decisions
 
 When originally designing the board I chose to take a inverted Y axis primarily because this makes drawing easier - it is the order that drawing occurs in. This is not entirely ideal for players who are used to standard XY grids, but I don't think it adds too much complexity, and is quite clearly shown on the board.
