@@ -1,5 +1,7 @@
 # SDPA Coursework (01/23)
 
+The Github Repositiory can be found at (https://github.com/aeroniemi/sdpa-coursework)[https://github.com/aeroniemi/sdpa-coursework]
+
 ## Dots and Boxes
 
 ### Introduction
@@ -79,7 +81,7 @@ Content for part 2 can be found in `./dataAnalytics/index.ipynb`
 
 The project is dependent on:
 
-- `spotipy` - Spotify API library
+- `spotipy` - Spotify API library, available at [https://pypi.org/project/spotipy/](https://pypi.org/project/spotipy/)
 - `numpy`
 - `pandas`
-- `seaborn`
+- `seaborn` - Charting library, available at [https://pypi.org/project/seaborn/](https://pypi.org/project/seaborn/)
