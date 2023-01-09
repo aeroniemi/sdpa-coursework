@@ -48,13 +48,13 @@ All files for the game are located in the `./game/` folder
 
 - `Player` class
   - Attributes associated with players
-- `Random` class
+- `RandomPlayer` class
   - Child of `Player`
   - Contains the inputs for the random computer player
-- `Human` class
+- `HumanPlayer` class
   - Child of `Player`
   - Contains the inputs for the human computer player
-- `Smart` class
+- `SmartPlayer` class
   - Child of `Player`
   - Contains the inputs for the smart computer player
 
