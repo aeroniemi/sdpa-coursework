@@ -248,7 +248,8 @@ class Board ():
                     if not " " in edges:
                         self.grid[i][j] = self.getActivePlayer()
                         self.getActivePlayer().addPoints()
-                        return
+                        return True
+        return False
 
     def getMaxNumberOfMoves(self):
         """
@@ -325,9 +326,11 @@ class Board ():
                     break
             self.addLine(*entry, self.getActivePlayer())
             # now the user has submitted their input, deal with points, then flip the user
-            self.calculatePoints()
+            hasScored = self.calculatePoints()
             self.printPoints()
-            self.activePlayer ^= 1  # bitwise way of flipping 1 for 0
+            # if nobody scored last round, flip the player
+            if not hasScored:
+                self.activePlayer ^= 1  # bitwise way of flipping 1 for 0
             self.moves += 1
         # the game has finished, let's show the people how it ended
         print("\n\n\n\n\n\n\n\n")
